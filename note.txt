@@ -1,0 +1,153 @@
+
+MVC Architecture
+----------------
+
+MVC - Model View Control 
+
+It is an architecture used to create a backend. (Architecture - Structure)
+
+Model - Backend code
+View - frontend (templates)
+Control - logic code
+
+We keep all these in seperate files.
+
+
+
+collection name must be plural.
+
+.env file is used to store the environmental variables.
+
+
+Environmental variables 
+-----------------------
+
+-> Variables that contain application configurations. (needs in the time of running)
+
+-> Process - Its a module provides environmental variables.
+
+-> The environmental variables should be secure variables(variables provides security. 
+Contains configurations and secured datas of the appplication. That is why we use it as environmental variables.)
+
+-> To convert static working of app into dynamic.
+
+
+Server
+------
+require() - method used to import files.
+listen() - To set port and configure the port.
+
+nodemon
+-------
+
+Node does not provide automatic recompilation. So we use a server called nodemon.
+nodemon is nothing but an extensibile version of node server.
+
+Automatic recompilation of response won't happen when we use node server.
+In this case, we can use nodemon server.
+nodemon server automatically recompiles the response.
+
+
+To install nodemon server
+-------------------------
+
+npm i nodemon
+
+npm i -g nodemon (-g for globall)  // To intsall nodemon globally
+
+
+To run the nodemon server
+-------------------------
+
+npx nodemon index.js  // npx - node package execute. npx is an extensible of npm. npx executes the node package module (npm)
+
+For identifying diffrent requests, the nodemon server use different urls.
+For each request(get/post/put/patch/delete), there will be different urls working.
+
+
+To import and save env file
+---------------------------
+
+npm install --save dotenv
+
+
+Front-end Server integration
+----------------------------
+
+Done using cors.
+cors - It is a library.
+
+cors - cross origin resource sharing
+
+To install cors - npm i cors
+
+All import codes should be at the top.
+
+frontend (ts) -> network (converts this ts to json) -> backend (receives json data. converts this json data to js)
+
+json() method in express - This method converts all the incoming json type datas into javascript automatically.
+
+
+Database Server integration
+---------------------------
+
+mongoose - library
+mongoose  - library used to integrate mongodb with node Server.
+
+To install mongoose - npm i mongoose
+
+connect() - method  // This is used to connect mongoose with mongodb atlas. 
+                       Here BASE_URL is the variable in which connection string of mongodb atlas is stored.
+                       So we need to use this variable inside connect method.
+                       Use this along with process module and .env file.
+
+If there are any issues while we connecting the server through network(it might happen when network busy or internet issues),
+we can use these 
+            - useUnifiedTopology:true
+            - useNewUrlParser:true
+
+
+modelcollections.js
+-------------------
+
+The name of model and collection should be same.
+
+schema - fields and values of collection.
+
+We created the model in the modelcollection.js file to connect the collection in the database and model in the modelcollection.js
+
+mongosh - mongoshell
+mongosh - used to do opeartions inside database using commands.  // opeartions - crud operations  // c- create r- read u -update d- delete
+
+
+methods for mongodb operations from node(server)
+------------------------------------------------
+
+To create a new data, we create an object for it.
+
+c - new modelname({keys:values})                - save()
+
+                                                new users(
+                                                    {
+                                                    acno:123,
+                                                    uname:"anu",
+                                                    psw:"abc123",
+                                                    balance:0,
+                                                    transactions:[]
+                                                    }
+                                                    )
+
+read -  accessing data from the database
+
+r - find() - to access all datas in collection
+    finOne() - to access a single data(or a particular data) in collection.
+    findOne({data})     eg: findOne({acno:1000}) - object of that particular user (full object. i.e full data of that particular user)
+
+u - findOne({})     - save()
+
+d - deleteOne({})   - We might not need to use this often. Because in our API methods, there is delete method.
+
+Routes
+------
+
+Router class - used to set path
