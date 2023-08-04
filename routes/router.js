@@ -11,9 +11,19 @@ const logic=require('../controllers/logic')
 
 const router=new express.Router()
 
-// register
+// setting path for register function in logic
 
 router.post('/bankuser/user-register',logic.register)
+
+// path for login       // Here the http request will have two types of data with it. (Account Number and password)
+                        // So it has to use body section of http request. 
+                        // Post type request has body section(can carry more than one data),
+                        // whereas get type request can only carry a single data.
+                        // So we use post request here
+
+
+router.post('/bankuser/user-login',logic.login)
+
 
 // export router
 

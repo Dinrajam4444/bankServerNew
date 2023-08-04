@@ -151,3 +151,20 @@ Routes
 ------
 
 Router class - used to set path
+
+
+destructuring the code
+----------------------
+
+making the code short.
+
+acno=req.body.acno 
+
+{acno}=req.body
+
+
+const acno=req.body.acno
+const uname=req.body.uname
+const psw=req.body.psw
+
+const {acno,uname,psw}=req.body

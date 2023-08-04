@@ -47,6 +47,22 @@ const register=(req,res)=>{             // body = {acno:123,uname:anu,psw:abc123
 
     }
 
+    // logic for login
+
+    const login=(req,res)=>{              // body = {acno:1000,psw:"abc123"}
+
+        const {acno,psw}=req.body
+        users.findOne({acno,psw}).then(user=>{
+            if(user){
+                res.status(200).json(user)
+            }
+            else{
+                res.status(401).json("Incorrect Acno or Password")
+            }
+        })
+
+    }
+
                                            
 
 
@@ -54,5 +70,5 @@ const register=(req,res)=>{             // body = {acno:123,uname:anu,psw:abc123
 
 
 module.exports={
-    register
+    register,login
 }
