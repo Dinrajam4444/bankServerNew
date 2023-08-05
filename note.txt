@@ -168,3 +168,10 @@ const uname=req.body.uname
 const psw=req.body.psw
 
 const {acno,uname,psw}=req.body
+
+
+
+getprofile path in router.js
+
+router.get('/bankuser/user-profile/:acno',logic.getProfile)      // Here we use a colon(:) to specify the varaiable acno as a param. 
+                                                                // We use acno variable because the account number changes when inputting the value of the account number.

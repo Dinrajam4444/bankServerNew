@@ -22,11 +22,18 @@ router.post('/bankuser/user-register',logic.register)
                         // So we use post request here
 
 
+// path for login request
+
 router.post('/bankuser/user-login',logic.login)
 
+// path for user-profile
 
-// export router
 
-module.exports=router
+router.get('/bankuser/user-profile/:acno',logic.getProfile)      
+                                                                
+                                                               
+ // export router
+
+    module.exports=router
 
 

@@ -26,7 +26,7 @@ const register=(req,res)=>{             // body = {acno:123,uname:anu,psw:abc123
         }
         else{
 
-            // register user - create a new object for user
+            // register user - create a new object for user(model)
 
             var newUser=new users({           // The keys used inside this should be matching the keys in the model. (model collection.js)
                 acno,
@@ -39,7 +39,7 @@ const register=(req,res)=>{             // body = {acno:123,uname:anu,psw:abc123
             // save the object in collection
                 newUser.save()
             
-            // response send to frontend        // json() -convert javascript data into json type data and send the response as well.
+            // response() - used to send response to frontend        // json() -convert javascript data into json type data and send the response as well.
 
                 res.status(200).json(newUser)
         }
@@ -63,12 +63,30 @@ const register=(req,res)=>{             // body = {acno:123,uname:anu,psw:abc123
 
     }
 
-                                           
+    // logic to get profile datas
+    
+    const getProfile=(req,res)=>{
+
+        // access acno param from url req
+
+        const {acno}=req.params
+        users.findOne({acno}).then(user=>{
+            if(user){
+                res.status(200).json({
+                    acno:user.acno,
+                    uname:user.uname
+                })
+            }
+            else{
+                res.status(401).json("user not exist")
+            }
+        })
+    }
 
 
 
 
 
 module.exports={
-    register,login
+    register,login,getProfile
 }
