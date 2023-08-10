@@ -173,5 +173,89 @@ const {acno,uname,psw}=req.body
 
 getprofile path in router.js
 
-router.get('/bankuser/user-profile/:acno',logic.getProfile)      // Here we use a colon(:) to specify the varaiable acno as a param. 
+router.get('/bankuser/user-profile/:acno',logic.getProfile)     // Here we use a colon(:) to specify the varaiable acno as a param. 
                                                                 // We use acno variable because the account number changes when inputting the value of the account number.
+
+User authentication
+-------------------
+
+Security features are important.
+User-authentication is done to provide extra security.
+
+
+Tokens
+------
+
+User-authentications can be done by token generation
+
+
+Json Web Token (JWT)
+--------------------
+
+Used to provide user-authentication.
+
+We need to generate a token if the user is successfull in logging in.
+
+jsonwebtoken - library. // It contains all codes related to tokens.
+
+npm i jsonwebtoken
+
+
+We need to stringify the token in the login ts file,because it is not in a string type.
+We need to convert it to string using stringify.
+
+Also we have to parse the token in the method we created in the dataservice when we access the token.
+
+And we need to put the second arguement in the parse as empty string. Because in Angular(when parsing), there needs to be something to parse in the localStorage.
+So we need to put an empty string to avoid an error.
+
+
+Middlewares
+-----------
+
+Middlewares can control the requests in server.
+
+We do the token validation using middlewares because only the middlewares can control the requests coming in the server.
+
+middleware code - true/false
+
+    true - allows the request to continue
+    false - blocks the request
+
+
+Middleware types
+----------------
+
+    -1 - Application Specific Middleware    - To control all server requests
+    -2 - Router Specific Middleware         - To control specific server requets
+
+    For all funcionalites to be working, we use Application Specific Middleware.
+    For Specific or a number of functionalities, we need Router Specific Middleware.
+
+
+middleware - a function with 3 arguements.   - req, res, next
+
+req -  The arguement which is used to take from a particular request if middleware is an applied to that request.
+       That is the request in which the middleware is currently applied.
+       If middleware works, the requests applied to it will be working and it will have the normal working flow.
+       
+res -  If the middleware works (true/false) - true when it works. And the nortal logic will work at that time.
+       And if its false, the logics in the backend(server) doesn't work and if we want to give a response, we can
+       use the res arguement.
+
+next - Normally when a function works, the program control will automatically come outside the function after executing the codes in the  function.
+       But in the case of a middleware function, that is not the case. Here the program control doesn't exit automatically after executing the code.
+       Here to continue(to take the control outside the function), we use the next function as the arguement.
+
+
+
+const token=req.headers["access_token"] // If token not accessed there will be an error - runtime error.
+                                            // That is a user(who didn't login) who try to access the methods after the login, this error will show up.
+
+try catch   - it is a technique to handle runtime error. If error happens, the server won't continue. It will work stopping.
+              We put the code(which can cause error) in the try section. 
+
+              And if an error happens, what needs to be done - That is mentioned in catch section.
+              What code should work instead of error code.
+
+Try block always works. And if an error happens, it switches to the catch section and execute the code in the catch section.

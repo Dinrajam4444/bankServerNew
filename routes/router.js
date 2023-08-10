@@ -7,9 +7,21 @@ const express=require('express')
 
 const logic=require('../controllers/logic')
 
-// // Create an object for Router class in express
+
+// import jwt middleware
+
+const jwtMiddleware = require('../middlewares/routerMiddleware')
+
+
+
+
+
+
+
+// Create an object for Router class in express
 
 const router=new express.Router()
+
 
 // setting path for register function in logic
 
@@ -28,11 +40,28 @@ router.post('/bankuser/user-login',logic.login)
 
 // path for user-profile
 
+    router.get('/bankuser/user-profile/:acno',jwtMiddleware,logic.getProfile)     // Here we use a colon(:) to specify the varaiable acno as a param. 
+                                                                                  // We use acno variable because the account number changes when inputting the value of the account number.
+                
+    
+// path for user-balance
 
-router.get('/bankuser/user-profile/:acno',logic.getProfile)      
-                                                                
-                                                               
- // export router
+    router.get('/bankuser/user-balance/:acno',jwtMiddleware,logic.getBalance)
+
+// path for money transfer
+
+    router.post('/bankuser/money-transfer',jwtMiddleware,logic.moneyTransfer)
+
+// path for transfer history
+
+    router.get('/bankuser/user-history/:acno',jwtMiddleware,logic.history)
+
+// delete account
+
+    router.delete('/bankuser/user-delete/:acno',jwtMiddleware,logic.deleteAc)
+
+
+// export router
 
     module.exports=router
 
